@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>bobr</groupId>
-    <artifactId>routeMicroservice</artifactId>
+    <artifactId>route-microservice</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>routeMicroservice</name>
     <description>routeMicroservice</description>
