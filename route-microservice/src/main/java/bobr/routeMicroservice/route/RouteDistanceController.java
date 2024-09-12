@@ -11,30 +11,24 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/v1/route/distance", produces = MediaType.APPLICATION_XML_VALUE)
+@RequestMapping(value = "/api/v1/routes/distance", produces = MediaType.APPLICATION_XML_VALUE)
 public class RouteDistanceController {
 
     private final RouteService routeService;
 
     @GetMapping("/less-than/{value}")
     public List<Route> lessThan(@PathVariable double value) {
-        return routeService.findAll().stream()
-                .filter(r -> r.getDistance() < value)
-                .toList();
+        return routeService.findAllByDistanceLessThan(value);
     }
 
     @GetMapping("/greater-than/{value}")
     public List<Route> greaterThan(@PathVariable double value) {
-        return routeService.findAll().stream()
-                .filter(r -> r.getDistance() > value)
-                .toList();
+        return routeService.findAllByDistanceGreaterThan(value);
     }
 
     @GetMapping("/unique")
-    public List<Route> unique() {
-        return routeService.findAll().stream()
-                .distinct()
-                .toList();
+    public List<Double> unique() {
+        return routeService.findDistinctDistances();
     }
 
 }

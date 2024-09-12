@@ -71,4 +71,16 @@ public class RouteService {
         routeRepository.deleteById(id);
     }
 
+    public List<Route> findAllByDistanceGreaterThan(Double distance) {
+        return routeRepository.findAllByDistanceGreaterThan(distance);
+    }
+
+    public List<Route> findAllByDistanceLessThan(Double distance) {
+        return routeRepository.findAllByDistanceLessThan(distance);
+    }
+
+    public List<Double> findDistinctDistances() {
+        return routeRepository.findDistinctDistances();
+    }
+
 }
