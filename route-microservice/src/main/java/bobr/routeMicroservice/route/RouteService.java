@@ -2,12 +2,14 @@ package bobr.routeMicroservice.route;
 
 import bobr.routeMicroservice.coordinates.Coordinates;
 import bobr.routeMicroservice.location.Location;
+import bobr.routeMicroservice.location.LocationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -15,13 +17,14 @@ import java.util.List;
 public class RouteService {
 
     private final RouteRepository routeRepository;
+    private final LocationService locationService;
 
     public Route findById(Integer id) {
         return routeRepository.findById(id).get();
     }
 
     public Route add(RouteRequest routeRequest) {
-        return routeRepository.save(new Route(routeRequest));
+        return routeRepository.save(createFromRouteRequest(routeRequest));
     }
 
     public List<Route> findAll() {
@@ -48,22 +51,6 @@ public class RouteService {
             coordinates.setY(route.getCoordinates().getY());
         }
 
-        if (route.getFrom() != null) {
-            Location from = routeToUpdate.getFrom();
-
-            from.setX(route.getFrom().getX());
-            from.setY(route.getFrom().getY());
-            from.setZ(route.getFrom().getZ());
-        }
-
-        if (route.getTo() != null) {
-            Location to = routeToUpdate.getTo();
-
-            to.setX(route.getTo().getX());
-            to.setY(route.getTo().getY());
-            to.setZ(route.getTo().getZ());
-        }
-
         routeRepository.save(routeToUpdate);
     }
 
@@ -81,6 +68,20 @@ public class RouteService {
 
     public List<Double> findDistinctDistances() {
         return routeRepository.findDistinctDistances();
+    }
+
+    public Route createFromRouteRequest(RouteRequest routeRequest) {
+        Location from = locationService.findById(routeRequest.getFromId());
+        Location to = locationService.findById(routeRequest.getToId());
+
+        return Route.builder()
+                .name(routeRequest.getName())
+                .coordinates(routeRequest.getCoordinates())
+                .from(from)
+                .to(to)
+                .distance(routeRequest.getDistance())
+                .creationDate(LocalDateTime.now())
+                .build();
     }
 
 }

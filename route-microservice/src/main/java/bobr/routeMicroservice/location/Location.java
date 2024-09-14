@@ -1,5 +1,7 @@
 package bobr.routeMicroservice.location;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -11,6 +13,7 @@ import lombok.Data;
 public class Location {
 
     @Id
+    @JsonIgnore
     @GeneratedValue
     private Integer id;
 
@@ -21,5 +24,10 @@ public class Location {
 
     @NotNull
     private Float z;
+
+    @JsonGetter(value = "id")
+    public Integer getId() {
+        return id;
+    }
 
 }

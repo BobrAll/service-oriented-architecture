@@ -1,8 +1,8 @@
 package bobr.routeMicroservice.location;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LocationRepository extends PagingAndSortingRepository<Location, Integer> {
+public interface LocationRepository extends JpaRepository<Location, Integer> {
 }

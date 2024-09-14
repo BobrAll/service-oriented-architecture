@@ -1,7 +1,6 @@
 package bobr.routeMicroservice.route;
 
 import bobr.routeMicroservice.coordinates.Coordinates;
-import bobr.routeMicroservice.location.Location;
 import jakarta.validation.Valid;
 import lombok.Data;
 
@@ -13,11 +12,9 @@ public class RouteRequest {
     @Valid
     private Coordinates coordinates;
 
-    @Valid
-    private Location from;
+    private Integer fromId;
 
-    @Valid
-    private Location to;
+    private Integer toId;
 
     private Double distance;
 

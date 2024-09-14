@@ -11,8 +11,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Data
 @Entity
 @Builder
@@ -44,15 +42,5 @@ public class Route {
 
     @Min(1)
     private Double distance;
-
-    public Route(RouteRequest routeRequest) {
-        this.name = routeRequest.getName();
-        this.coordinates = routeRequest.getCoordinates();
-        this.from = routeRequest.getFrom();
-        this.to = routeRequest.getTo();
-        this.distance = routeRequest.getDistance();
-
-        this.creationDate = LocalDateTime.now();
-    }
 
 }

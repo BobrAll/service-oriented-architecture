@@ -69,7 +69,7 @@ public class RouteController {
             @PathVariable Integer id,
             @Valid @RequestBody RouteRequest routeRequest
     ) {
-        Route updatedRoute = new Route(routeRequest);
+        Route updatedRoute = routeService.createFromRouteRequest(routeRequest);
         routeService.update(id, updatedRoute);
     }
 
