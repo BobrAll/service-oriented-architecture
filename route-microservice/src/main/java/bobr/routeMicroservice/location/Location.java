@@ -1,6 +1,5 @@
 package bobr.routeMicroservice.location;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -13,7 +12,6 @@ public class Location {
 
     @Id
     @GeneratedValue
-    @JsonIgnore
     private Integer id;
 
     @NotNull

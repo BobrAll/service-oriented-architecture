@@ -24,9 +24,11 @@ public class RouteController {
             @RequestParam(required = false) String name,
             @RequestParam(required = false) Long coordX,
             @RequestParam(required = false) Long coordY,
+            @RequestParam(required = false) Integer fromId,
             @RequestParam(required = false) Double fromX,
             @RequestParam(required = false) Integer fromY,
             @RequestParam(required = false) Float fromZ,
+            @RequestParam(required = false) Integer toId,
             @RequestParam(required = false) Double toX,
             @RequestParam(required = false) Integer toY,
             @RequestParam(required = false) Float toZ,
@@ -42,6 +44,8 @@ public class RouteController {
 
         Specification<Route> spec = Specification
                 .where(RouteSpecification.hasId(id))
+                .and(RouteSpecification.hasFromId(fromId))
+                .and(RouteSpecification.hasToId(toId))
                 .and(RouteSpecification.hasName(name))
                 .and(RouteSpecification.hasCoordinates(coordX, coordY))
                 .and(RouteSpecification.hasLocationFrom(fromX, fromY, fromZ))
