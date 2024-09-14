@@ -1,12 +1,13 @@
 package bobr.navigatorMicroservice.navigator;
 
+import bobr.navigatorMicroservice.models.NavigatorRouteRequest;
+import bobr.navigatorMicroservice.models.RouteRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.*;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -43,6 +44,31 @@ public class NavigatorController {
                 .toUri();
 
         return restTemplate.getForEntity(uri, String.class);
+    }
+
+    @PostMapping("/add/{id-from}/{id-to}/{distance}")
+    public ResponseEntity<String> addRoute(
+            @PathVariable("id-from") Integer fromId,
+            @PathVariable("id-to") Integer toId,
+            @PathVariable Double distance,
+            @Valid @RequestBody NavigatorRouteRequest navigatorRouteRequest
+    ) {
+        URI uri = UriComponentsBuilder
+                .fromHttpUrl(ROUTE_MICROSERVICE_URL)
+                .port(ROUTE_MICROSERVICE_PORT)
+                .path("/api/v1/routes")
+                .build()
+                .toUri();
+
+        RouteRequest routeRequest = RouteRequest.builder()
+                .name(navigatorRouteRequest.getRouteName())
+                .coordinates(navigatorRouteRequest.getCoordinates())
+                .fromId(fromId)
+                .toId(toId)
+                .distance(distance)
+                .build();
+
+        return restTemplate.postForEntity(uri, routeRequest, String.class);
     }
 
 }
