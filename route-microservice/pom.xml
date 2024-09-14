@@ -10,7 +10,7 @@
     </parent>
     <groupId>bobr</groupId>
     <artifactId>route-microservice</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1</version>
     <name>routeMicroservice</name>
     <description>routeMicroservice</description>
 
@@ -50,6 +50,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

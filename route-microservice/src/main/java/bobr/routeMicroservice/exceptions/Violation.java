@@ -1,4 +1,4 @@
-package bobr.routeMicroservice.exceptions.validation;
+package bobr.routeMicroservice.exceptions;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Violation {
 
-    private final String objectName;
     private final String fieldName;
     private final String message;
 

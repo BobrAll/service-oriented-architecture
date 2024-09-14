@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/v1/routes", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
+@RequestMapping(value = "/api/v1/routes", produces = MediaType.APPLICATION_XML_VALUE)
 public class RouteController {
 
     public final RouteService routeService;
@@ -63,7 +63,7 @@ public class RouteController {
     @PutMapping("/{id}")
     public void updateRoute(
             @PathVariable Integer id,
-            @RequestBody RouteRequest routeRequest
+            @Valid @RequestBody RouteRequest routeRequest
     ) {
         Route updatedRoute = new Route(routeRequest);
         routeService.update(id, updatedRoute);
