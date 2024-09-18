@@ -1,0 +1,102 @@
+<div class="locations">
+  <h2>Locations</h2>
+
+  <!-- Карточка для добавления новой локации -->
+  <mat-card class="location-card">
+    <form [formGroup]="newLocationForm" (ngSubmit)="addLocation()" class="location-form">
+      <mat-form-field>
+        <input matInput placeholder="X" formControlName="x" required>
+        <mat-error *ngIf="newLocationForm.get('x').hasError('required')">Поле X обязательно для заполнения</mat-error>
+        <mat-error *ngIf="newLocationForm.get('x').hasError('pattern')">Поле X должно быть числом</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Y" formControlName="y" required>
+        <mat-error *ngIf="newLocationForm.get('y').hasError('required')">Поле Y обязательно для заполнения</mat-error>
+        <mat-error *ngIf="newLocationForm.get('y').hasError('pattern')">Поле Y должно быть числом</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Z" formControlName="z" required>
+        <mat-error *ngIf="newLocationForm.get('z').hasError('required')">Поле Z обязательно для заполнения</mat-error>
+        <mat-error *ngIf="newLocationForm.get('z').hasError('pattern')">Поле Z должно быть числом</mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="newLocationForm.invalid">Add Location</button>
+    </form>
+  </mat-card>
+
+  <!-- Карточка для списка локаций -->
+  <mat-card class="location-list-card">
+    <table mat-table [dataSource]="locations" class="mat-elevation-z8">
+      <ng-container matColumnDef="x">
+        <th mat-header-cell *matHeaderCellDef> X </th>
+        <td mat-cell *matCellDef="let location"> {{ location.x }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="y">
+        <th mat-header-cell *matHeaderCellDef> Y </th>
+        <td mat-cell *matCellDef="let location"> {{ location.y }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="z">
+        <th mat-header-cell *matHeaderCellDef> Z </th>
+        <td mat-cell *matCellDef="let location"> {{ location.z }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let location">
+          <button mat-icon-button color="warn" (click)="deleteLocation(location.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" (click)="editLocation(location)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['x', 'y', 'z', 'actions']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['x', 'y', 'z', 'actions'];"></tr>
+    </table>
+  </mat-card>
+
+  <!-- Сообщение об ошибке -->
+  <div *ngIf="errorMessage" class="error-message">
+    <mat-card class="error-card">
+      <mat-card-content>{{ errorMessage }}</mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Форма редактирования локации -->
+  <div *ngIf="selectedLocation" class="edit-location-form">
+    <h3>Edit Location</h3>
+    <form [formGroup]="selectedLocationForm" (ngSubmit)="updateLocation()">
+      <div class="form-fields">
+        <mat-form-field appearance="outline">
+          <input matInput placeholder="X" formControlName="x" required>
+          <mat-error *ngIf="selectedLocationForm.get('x').hasError('required')">Поле X обязательно для заполнения</mat-error>
+          <mat-error *ngIf="selectedLocationForm.get('x').hasError('pattern')">Поле X должно быть числом</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <input matInput placeholder="Y" formControlName="y" required>
+          <mat-error *ngIf="selectedLocationForm.get('y').hasError('required')">Поле Y обязательно для заполнения</mat-error>
+          <mat-error *ngIf="selectedLocationForm.get('y').hasError('pattern')">Поле Y должно быть числом</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <input matInput placeholder="Z" formControlName="z" required>
+          <mat-error *ngIf="selectedLocationForm.get('z').hasError('required')">Поле Z обязательно для заполнения</mat-error>
+          <mat-error *ngIf="selectedLocationForm.get('z').hasError('pattern')">Поле Z должно быть числом</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="button-group">
+        <button mat-stroked-button color="warn" type="button" (click)="cancelEdit()">Cancel</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="selectedLocationForm.invalid">Update</button>
+      </div>
+    </form>
+  </div>
+
+</div>

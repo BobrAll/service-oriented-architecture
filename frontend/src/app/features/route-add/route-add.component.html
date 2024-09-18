@@ -1,0 +1,43 @@
+<div class="route-add">
+  <h2>Add Route</h2>
+  <form [formGroup]="routeForm" (ngSubmit)="addRoute()" class="route-form">
+    <mat-form-field>
+      <input matInput placeholder="Name" formControlName="name" required>
+      <mat-error *ngIf="routeForm.get('name').errors?.required">Name is required</mat-error>
+    </mat-form-field>
+
+    <div formGroupName="coordinates">
+      <mat-form-field>
+        <input matInput type="number" placeholder="Coordinates X" formControlName="x" required>
+        <mat-error *ngIf="routeForm.get('coordinates.x').errors?.required">Поле X обязательно для заполнения</mat-error>
+        <mat-error *ngIf="routeForm.get('coordinates.x').errors?.pattern">Поле X должно быть числом</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput type="number" placeholder="Coordinates Y" formControlName="y" required>
+        <mat-error *ngIf="routeForm.get('coordinates.y').errors?.required">Поле Y обязательно для заполнения</mat-error>
+        <mat-error *ngIf="routeForm.get('coordinates.y').errors?.pattern">Поле Y должно быть числом</mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field>
+      <input matInput type="number" placeholder="From Location ID" formControlName="fromId" required>
+      <mat-error *ngIf="routeForm.get('fromId').errors?.required">Поле Location ID обязательно для заполнения</mat-error>
+      <mat-error *ngIf="routeForm.get('fromId').errors?.pattern">Поле Location ID должно быть числом</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="number" placeholder="To Location ID" formControlName="toId" required>
+      <mat-error *ngIf="routeForm.get('toId').errors?.required">Поле ID обязательно для заполнения</mat-error>
+      <mat-error *ngIf="routeForm.get('toId').errors?.pattern">Поле Location ID должно быть числом</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="number" placeholder="Distance" formControlName="distance" required>
+      <mat-error *ngIf="routeForm.get('distance').errors?.required">Поле Distance обязательно для заполнения</mat-error>
+      <mat-error *ngIf="routeForm.get('distance').errors?.min">Поле Distance должно быть больше 0</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Add Route</button>
+  </form>
+</div>
