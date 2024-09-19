@@ -1,0 +1,91 @@
+<div class="route-list">
+  <h2>Routes</h2>
+  <div class="filter-section">
+    <button mat-raised-button color="primary" (click)="getAllRoutes()">Refresh Routes</button>
+    <button mat-raised-button color="accent" routerLink="/routes/distance/shortest">Find Shortest Route</button>
+
+    <mat-form-field>
+      <input matInput placeholder="Min Distance" [(ngModel)]="minDistance" type="number" (change)="applyFilter()">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Max Distance" [(ngModel)]="maxDistance" type="number" (change)="applyFilter()">
+    </mat-form-field>
+
+    <mat-checkbox [(ngModel)]="showUniqueDistances" (change)="applyFilterAndSort()">Show Routes with Unique Distances</mat-checkbox>
+  </div>
+
+  <table mat-table [dataSource]="filteredRoutes" class="mat-elevation-z8">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>
+        Name
+        <button mat-icon-button (click)="toggleSort('name')">
+          <mat-icon>{{ getSortDirectionIcon('name') }}</mat-icon>
+        </button>
+      </th>
+      <td mat-cell *matCellDef="let route"> {{route.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="distance">
+      <th mat-header-cell *matHeaderCellDef>
+        Distance (km)
+        <button mat-icon-button (click)="toggleSort('distance')">
+          <mat-icon>{{ getSortDirectionIcon('distance') }}</mat-icon>
+        </button>
+      </th>
+      <td mat-cell *matCellDef="let route"> {{route.distance}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let route">
+        <button mat-icon-button color="warn" (click)="deleteRoute(route.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" (click)="viewRoute(route.id)">
+          <mat-icon>visibility</mat-icon>
+        </button>
+        <button mat-icon-button color="accent" (click)="editRoute(route)">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['name', 'distance', 'actions']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['name', 'distance', 'actions'];"></tr>
+  </table>
+
+  <!-- Форма редактирования -->
+  <div *ngIf="selectedRoute" class="edit-route-form">
+    <h3>Edit Route</h3>
+    <form (ngSubmit)="updateRoute()">
+      <mat-form-field>
+        <input matInput placeholder="Name" [(ngModel)]="selectedRoute.name" name="name" required>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput type="number" placeholder="Coordinates X" [(ngModel)]="selectedRoute.coordinates.x" name="coordX" required>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput type="number" placeholder="Coordinates Y" [(ngModel)]="selectedRoute.coordinates.y" name="coordY" required>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput type="number" placeholder="From Location ID" [(ngModel)]="selectedRoute.fromId" name="fromId" required>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput type="number" placeholder="To Location ID" [(ngModel)]="selectedRoute.toId" name="toId" required>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput type="number" placeholder="Distance" [(ngModel)]="selectedRoute.distance" name="distance" required>
+      </mat-form-field>
+
+      <div class="button-group">
+        <button mat-stroked-button color="warn" type="button" (click)="cancelEdit()">Cancel</button>
+        <button mat-raised-button color="primary" type="submit">Update</button>
+      </div>
+    </form>
+  </div>
+</div>

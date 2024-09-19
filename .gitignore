@@ -1,7 +1,7 @@
-# Compiled class file
+# Java class files
 *.class
 
-# Log file
+# Log files
 *.log
 
 # BlueJ files
@@ -19,6 +19,46 @@
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+# Virtual machine crash logs
 hs_err_pid*
 replay_pid*
+
+# Ignore Maven & Gradle build directories
+/target/
+/build/
+/navigator-microservice/target/
+/route-microservice/target/
+
+# IntelliJ IDEA-specific files
+/.idea/
+/*.iml
+/out/
+
+# VS Code specific files
+.vscode/
+
+# Maven dependencies (optional)
+.mvn/
+
+# Ignore all Eclipse files
+.project
+.classpath
+.settings/
+.metadata/
+
+# Node.js-related files (if applicable)
+/node_modules/
+/frontend/node_modules/
+/frontend/.angular/cache/
+/frontend/.angular/*
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore temporary or system files
+*.swp
+*.swo
+*.bak
+*~
+*.tmp

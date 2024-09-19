@@ -1,0 +1,11 @@
+<div class="route-detail">
+  <h2 class="route-title">Route Details</h2>
+
+  <mat-card class="route-card">
+    <p><strong>Name:</strong> {{ route?.name }}</p>
+    <p><strong>Distance:</strong> {{ route?.distance }} km</p>
+    <p><strong>From Location:</strong> {{ route?.from.x }}, {{ route?.from.y }}, {{ route?.from.z }}</p>
+    <p><strong>To Location:</strong> {{ route?.to.x }}, {{ route?.to.y }}, {{ route?.to.z }}</p>
+    <p><strong>Coordinates:</strong> X: {{ route?.coordinates.x }}, Y: {{ route?.coordinates.y }}</p>
+  </mat-card>
+</div>

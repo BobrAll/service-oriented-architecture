@@ -1,0 +1,29 @@
+<div class="shortest-route-container">
+  <div class="shortest-route">
+    <h2>Find Shortest Route</h2>
+    <form (ngSubmit)="findShortestRoute()" class="route-form">
+      <mat-form-field>
+        <input matInput placeholder="From ID" [(ngModel)]="fromId" name="fromId" required>
+        <mat-error *ngIf="shortestRouteForm.get('fromId').errors?.required">Поле From ID обязательно</mat-error>
+        <mat-error *ngIf="shortestRouteForm.get('fromId').errors?.pattern">Поле To ID должно быть числом</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="To ID" [(ngModel)]="toId" name="toId" required>
+        <mat-error *ngIf="shortestRouteForm.get('toId').errors?.required">Поле From ID обязательно</mat-error>
+        <mat-error *ngIf="shortestRouteForm.get('toId').errors?.pattern">Поле To ID должно быть числом</mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Find Shortest Route</button>
+      <button mat-raised-button color="accent" (click)="goBack()">Back</button>
+    </form>
+
+    <div *ngIf="shortestRoute" class="route-details">
+      <h3>Shortest Route Details:</h3>
+      <p><strong>Name:</strong> {{ shortestRoute.name }}</p>
+      <p><strong>Distance:</strong> {{ shortestRoute.distance }} km</p>
+      <p><strong>From:</strong> ({{ shortestRoute.from.x }}, {{ shortestRoute.from.y }}, {{ shortestRoute.from.z }})</p>
+      <p><strong>To:</strong> ({{ shortestRoute.to.x }}, {{ shortestRoute.to.y }}, {{ shortestRoute.to.z }})</p>
+      <p><strong>Coordinates:</strong> ({{ shortestRoute.coordinates.x }}, {{ shortestRoute.coordinates.y }})</p>
+      <p><strong>Creation Date:</strong> {{ shortestRoute.creationDate }}</p>
+    </div>
+  </div>
+</div>
