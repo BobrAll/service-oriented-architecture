@@ -7,7 +7,7 @@ import { map, Observable, Subject } from 'rxjs'
     providedIn: 'root'
 })
 export class RouteService {
-    private baseUrl = 'http://localhost:8080/api/v1/routes';
+    private baseUrl = 'https://localhost:8443/api/v1/routes';
     private refreshNeeded = new Subject<void>();
     constructor(private http: HttpClient) { }
 

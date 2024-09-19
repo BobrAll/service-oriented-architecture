@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class LocationService {
-  private baseUrl = 'http://localhost:8080/api/v1/locations';
+  private baseUrl = 'https://localhost:8443/api/v1/locations';
 
   constructor(private http: HttpClient) {}
 
