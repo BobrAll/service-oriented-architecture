@@ -32,11 +32,11 @@ public class Route {
     private java.time.LocalDateTime creationDate;
 
     @NotNull
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "from_id")
     private Location from;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "to_id")
     private Location to;
 
