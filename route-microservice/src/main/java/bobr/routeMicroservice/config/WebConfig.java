@@ -1,4 +1,4 @@
-package bobr.routeMicroservice;
+package bobr.routeMicroservice.config;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Bean;
