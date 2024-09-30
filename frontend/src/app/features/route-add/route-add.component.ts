@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavigatorService } from '../../core/services/navigator.service'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { RouteService } from '../../core/services/route.service'
 
 @Component({
     selector: 'app-route-add',
@@ -19,7 +20,8 @@ export class RouteAddComponent {
     routeForm: FormGroup;
 
     constructor(private navigatorService: NavigatorService,
-                private fb: FormBuilder,) {
+                private fb: FormBuilder,
+                private  routeService: RouteService) {
         this.createForm();
     }
 
@@ -49,10 +51,7 @@ export class RouteAddComponent {
                 distance: this.routeForm.value.distance
             };
 
-            this.navigatorService.addRoute(
-                this.routeRequest.fromId,
-                this.routeRequest.toId,
-                this.routeRequest.distance,
+            this.routeService.createRoute(
                 this.routeRequest
             ).subscribe(response => {
                 console.log('Route added using Navigator Endpoint:', response);

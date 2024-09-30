@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { map, Observable, Subject } from 'rxjs'
+import { map, Observable, Subject, tap } from 'rxjs'
 
 
 @Injectable({
@@ -25,6 +25,16 @@ export class RouteService {
             .pipe(
                 map((xmlString: string) => this.parseXmlListToJson(xmlString))
             );
+    }
+
+    createRoute(routeRequest: any): Observable<any> {
+        return this.http.post(this.baseUrl, routeRequest, {
+            headers: { 'Content-Type': 'application/json' },
+            responseType: 'text'
+        }).pipe(
+            map((xmlString: string) => this.parseXmlItemToJson(xmlString)),
+            tap(() => this.refreshNeeded.next())
+        );
     }
 
     getRouteById(id: number): Observable<any> {

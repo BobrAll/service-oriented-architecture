@@ -1,0 +1,19 @@
+server:
+  port: 8082
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-password: 123456
+    key-store-type: PKCS12
+    key-alias: my-ssl-key
+
+route-microservice:
+  url: ${ROUTE_MICROSERVICE_URL:https://localhost}
+  port: ${ROUTE_MICROSERVICE_PORT:8443}
+
+spring:
+  task:
+    execution:
+      pool:
+        core-size: 10
+        max-size: 100
+        queue-capacity: 500
