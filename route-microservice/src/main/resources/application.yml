@@ -5,12 +5,29 @@ spring:
     username: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:postgres}
 
+  application:
+    name: route-microservice
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        health-check-tls-skip-verify: true
+        health-check-url: https://localhost:${server.port}/actuator/health
+
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: false
     properties:
       hibernate:
         format_sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  ssl:
+    key-store: ***
+    key-store-password: ***
+    key-store-type: ***
+    key-alias: ***
