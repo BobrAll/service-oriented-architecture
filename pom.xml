@@ -8,8 +8,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>navigator-microservice-ejb</module>
-        <module>navigator-microservice-web</module>
+        <module>navigator-microservice/navigator-microservice-ejb</module>
+        <module>navigator-microservice/navigator-microservice-web</module>
     </modules>
 
     <properties>
