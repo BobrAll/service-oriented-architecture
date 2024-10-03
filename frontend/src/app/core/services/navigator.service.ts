@@ -6,7 +6,7 @@ import { map, Observable, Subject, tap } from 'rxjs'
     providedIn: 'root'
 })
 export class NavigatorService {
-    private baseUrl = 'https://localhost:8081/api/v1/navigator/route';
+    private baseUrl = 'https://localhost:9908/api/v1/navigator/route';
     private _refreshNeeded$ = new Subject<void>();
 
     get refreshNeeded$() {
