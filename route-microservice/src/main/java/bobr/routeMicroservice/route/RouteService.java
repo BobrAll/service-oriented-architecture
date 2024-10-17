@@ -3,11 +3,14 @@ package bobr.routeMicroservice.route;
 import bobr.routeMicroservice.coordinates.Coordinates;
 import bobr.routeMicroservice.location.Location;
 import bobr.routeMicroservice.location.LocationService;
+import bobr.routeMicroservice.mappers.CoordinateMapper;
+import https.help_me.please.CreateRouteRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,12 +21,14 @@ public class RouteService {
 
     private final RouteRepository routeRepository;
     private final LocationService locationService;
+    private final CoordinateMapper coordinateMapper;
 
     public Route findById(Integer id) {
         return routeRepository.findById(id).get();
     }
 
-    public Route add(RouteRequest routeRequest) {
+    @Transactional
+    public Route add(CreateRouteRequest routeRequest) {
         return routeRepository.save(createFromRouteRequest(routeRequest));
     }
 
@@ -38,18 +43,14 @@ public class RouteService {
     public void update(Integer id, Route route) {
         Route routeToUpdate = routeRepository.findById(id).get();
 
-        if (route.getName() != null)
-            routeToUpdate.setName(route.getName());
+        routeToUpdate.setName(route.getName());
 
-        if (route.getDistance() != null)
-            routeToUpdate.setDistance(route.getDistance());
+        routeToUpdate.setDistance(route.getDistance());
 
-        if (route.getCoordinates() != null) {
-            Coordinates coordinates = routeToUpdate.getCoordinates();
+        Coordinates coordinates = routeToUpdate.getCoordinates();
 
-            coordinates.setX(route.getCoordinates().getX());
-            coordinates.setY(route.getCoordinates().getY());
-        }
+        coordinates.setX(route.getCoordinates().getX());
+        coordinates.setY(route.getCoordinates().getY());
 
         routeRepository.save(routeToUpdate);
     }
@@ -70,13 +71,14 @@ public class RouteService {
         return routeRepository.findDistinctDistances();
     }
 
-    public Route createFromRouteRequest(RouteRequest routeRequest) {
+    @Transactional
+    public Route createFromRouteRequest(CreateRouteRequest routeRequest) {
         Location from = locationService.findById(routeRequest.getFromId());
         Location to = locationService.findById(routeRequest.getToId());
 
         return Route.builder()
                 .name(routeRequest.getName())
-                .coordinates(routeRequest.getCoordinates())
+                .coordinates(coordinateMapper.map(routeRequest.getCoordinates()))
                 .from(from)
                 .to(to)
                 .distance(routeRequest.getDistance())

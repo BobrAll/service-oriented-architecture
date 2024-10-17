@@ -1,0 +1,227 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="https://help.me/please"
+           xmlns="https://help.me/please"
+           elementFormDefault="qualified">
+
+    <xs:complexType name="SoapRoute">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="coordinates" type="SoapCoordinates"/>
+            <xs:element name="creationDate" type="xs:dateTime"/>
+            <xs:element name="from" type="SoapLocation"/>
+            <xs:element name="to" type="SoapLocation"/>
+            <xs:element name="distance" type="xs:double"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="createRouteRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element name="coordinates" type="CreateCoordinatesRequest"/>
+                <xs:element name="fromId" type="xs:int"/>
+                <xs:element name="toId" type="xs:int"/>
+                <xs:element name="distance" type="xs:double"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getRouteRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getRouteResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="route" type="SoapRoute"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getAllRoutesRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int" minOccurs="0"/>
+                <xs:element name="name" type="xs:string" minOccurs="0"/>
+                <xs:element name="coordX" type="xs:long" minOccurs="0"/>
+                <xs:element name="coordY" type="xs:long" minOccurs="0"/>
+                <xs:element name="fromId" type="xs:int" minOccurs="0"/>
+                <xs:element name="fromX" type="xs:double" minOccurs="0"/>
+                <xs:element name="fromY" type="xs:int" minOccurs="0"/>
+                <xs:element name="fromZ" type="xs:float" minOccurs="0"/>
+                <xs:element name="toId" type="xs:int" minOccurs="0"/>
+                <xs:element name="toX" type="xs:double" minOccurs="0"/>
+                <xs:element name="toY" type="xs:int" minOccurs="0"/>
+                <xs:element name="toZ" type="xs:float" minOccurs="0"/>
+                <xs:element name="page" type="xs:int" minOccurs="0" default="0"/>
+                <xs:element name="size" type="xs:int" minOccurs="0" default="10"/>
+                <xs:element name="sortField" type="xs:string" minOccurs="0" default="id"/>
+                <xs:element name="sortDirection" type="xs:string" minOccurs="0" default="asc"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getAllRoutesResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="routes" type="SoapRoute" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="updateRouteRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element name="coordinates" type="CreateCoordinatesRequest"/>
+                <xs:element name="fromId" type="xs:int"/>
+                <xs:element name="toId" type="xs:int"/>
+                <xs:element name="distance" type="xs:double"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="deleteRouteRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getDistancesLessThanValueRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="value" type="xs:double"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getDistancesLessThanValueResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="routes" type="SoapRoute" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getDistancesGreaterThanValueRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="value" type="xs:double"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getDistancesGreaterThanValueResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="routes" type="SoapRoute" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="getUniqueDistancesRequest">
+        <xs:complexType>
+            <xs:sequence/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getUniqueDistancesResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="distances" type="xs:double" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="SoapCoordinates">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="x" type="xs:long"/>
+            <xs:element name="y" type="xs:long"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CreateCoordinatesRequest">
+        <xs:sequence>
+            <xs:element name="x" type="xs:long"/>
+            <xs:element name="y" type="xs:long"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="SoapLocation">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="x" type="xs:double"/>
+            <xs:element name="y" type="xs:int"/>
+            <xs:element name="z" type="xs:float"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="createLocationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="x" type="xs:double"/>
+                <xs:element name="y" type="xs:int"/>
+                <xs:element name="z" type="xs:float"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getLocationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getLocationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="location" type="SoapLocation"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getAllLocationsRequest">
+        <xs:complexType>
+            <xs:sequence/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getAllLocationsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="locations" type="SoapLocation" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="updateLocationRequest">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="x" type="xs:double"/>
+            <xs:element name="y" type="xs:int"/>
+            <xs:element name="z" type="xs:float"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="deleteLocationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

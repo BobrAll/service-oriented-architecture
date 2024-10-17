@@ -1,7 +1,8 @@
 package bobr.routeMicroservice.route;
 
-import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
+
+import javax.persistence.criteria.Predicate;
 
 public class RouteSpecification {
 

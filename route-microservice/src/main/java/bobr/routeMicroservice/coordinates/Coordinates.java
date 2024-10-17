@@ -1,14 +1,17 @@
 package bobr.routeMicroservice.coordinates;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.Max;
 import lombok.Data;
+import lombok.ToString;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.validation.constraints.Max;
 
 @Data
 @Entity
+@ToString
 public class Coordinates {
 
     @Id

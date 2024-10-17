@@ -18,16 +18,7 @@ public class MethodArgumentNotValidExceptionHandler {
     }
 
     private Violation generateViolationFromException(MethodArgumentNotValidException e) {
-        final int IDX_OF_ARG_WITH_INFORMATION = 1;
-
-        String[] parts = e.getDetailMessageArguments()[IDX_OF_ARG_WITH_INFORMATION]
-                .toString()
-                .split(":", 2);
-
-        String fieldName = parts[0].trim();
-        String message = parts[1].trim();
-
-        return new Violation(fieldName, message);
+        return new Violation(e.getObjectName(), e.getMessage());
     }
 
 }

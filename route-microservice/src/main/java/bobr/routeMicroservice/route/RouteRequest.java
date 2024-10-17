@@ -1,8 +1,9 @@
 package bobr.routeMicroservice.route;
 
 import bobr.routeMicroservice.coordinates.Coordinates;
-import jakarta.validation.Valid;
 import lombok.Data;
+
+import javax.validation.Valid;
 
 @Data
 public class RouteRequest {
